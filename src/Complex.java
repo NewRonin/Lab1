@@ -1,8 +1,8 @@
-import java.math.*;
+import java.lang.IllegalArgumentException;
 
 public class Complex {
 	private float a, b;
-	//Конструктор ввода
+	//Конструкторы ввода
 	public Complex() {
 		this(0,0);
 	}
@@ -16,32 +16,41 @@ public class Complex {
 
 	//Сложение
 	public void add(Complex num) {
+		if (num == null) {
+			throw new IllegalArgumentException("Отсутствует второй операнд");
+		}
+
 		this.a += num.a;
 		this.b += num.b;
+
 	}
-	
+
 	//Умножение
 	public void mult(Complex num) {
+		if (num == null) {
+			throw new IllegalArgumentException("Отсутствует второй операнд");
+		}
+
 		final float temp = this.a;
 		this.a = (this.a * num.a) - (this.b * num.b);
 		this.b = (temp * num.b) + (this.b * num.a);
 	}
-	
+
 	//Тригонометрическая форма
 	public void getTriangle() {
 		final float r = (float) Math.sqrt(this.a * this.a + this.b*this.b);
 		final float cosf = this.a / r;
 		final float f = (float) Math.acos(cosf);
-		
-		System.out.print(r + " * (cos(" + f +") + i*sin("+f+"))");
+
+		System.out.printf("%.2f * (cos(%.2f) + i * sin(%.2f))",r, f, f);
 	}
 
-	// get/set
-	
+	// Геттеры/Сеттеры класса
+
 	public void getNumber() {
 		System.out.print(a + ( b > 0 ? "+" : "") + (b == 0 ? "" : b + "*i"));
 	}
-	
+
 	public float getA() {
 		return a;
 	}
@@ -54,5 +63,6 @@ public class Complex {
 	public void setB(float b) {
 		this.b = b;
 	}
+	
 
 }
